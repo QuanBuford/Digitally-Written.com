@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ post.title }}{% endblock title %}
-
 {% block content %}
-<h2>{{ post.title }}</h2>
+<h1>{{ post.title }}</h1>
 <p>By {{ post.author }} on {{ post.created_at }}</p>
 <p>{{ post.content }}</p>
-{% if user == post.author %}
-    <a href="{% url 'edit_post' post.pk %}">Edit Post</a>
+
+<h2>Comments</h2>
+<ul>
+    {% for comment in comments %}
+        <li><strong>{{ comment.author }}</strong>: {{ comment.content }}</li>
+    {% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+<h3>Add a Comment</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+{% else %}
+<p>You must <a href="{% url 'Login' %}">log in</a> to comment.</p>
 {% endif %}
-<a href="{% url 'post_list' %}">Back to Posts</a>
 {% endblock content %}
