@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{%block content%}
+
+<ul>
+    <li>
+        <a href= "{%url 'Login'%}"><p>Login</p></a>
+        <a href= "{%url 'register'%}"><p>Create Account</p></a>
+        {% comment "" %}<a href= "{%url 'view_blog'%}"><p>Upcoming Blogs</p></a>{% endcomment %}
+        
+    </li>
+</ul>
+<body>
+    <p>
+        Welcome to Digitally Written! A great blog for the current and previous students to connect.
+    </p>
+</body>
+
+{%endblock content%}
