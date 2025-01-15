@@ -1,0 +1,132 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #A6DFF5; /* Light blue as the base background */
+    color: #00165A; /* Navy for primary text */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+/* Header */
+header {
+    background-color: #00165A; /* Navy */
+    color: #FFFFFF;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+/* Navigation Bar */
+nav {
+    background-color: #603913; /* Brown */
+    padding: 0.5rem 1rem;
+    text-align: center;
+}
+nav a {
+    color: #FFFFFF;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: color 0.3s ease-in-out;
+}
+nav a:hover {
+    color: #A6DFF5; /* Light blue hover effect */
+}
+/* Main Content */
+main {
+    padding: 2rem;
+    background-color: #FFFFFF; /* White background for content area */
+    margin: 1rem auto;
+    border-radius: 8px;
+    max-width: 800px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* Buttons */
+button, .btn {
+    background-color: #00165A; /* Navy */
+    color: #FFFFFF;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+button:hover, .btn:hover {
+    background-color: #603913; /* Brown */
+}
+/* Form Inputs */
+input, textarea, select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #00165A; /* Navy border */
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #603913; /* Brown focus color */
+    box-shadow: 0 0 4px #A6DFF5; /* Light blue glow */
+}
+/* Footer */
+footer {
+    background-color: #00165A; /* Navy */
+    color: #FFFFFF;
+    text-align: center;
+    padding: 1rem;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 2rem;
+}
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+/* Cards */
+.card {
+    background-color: #FFFFFF;
+    border: 1px solid #A6DFF5;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.card h3 {
+    color: #00165A; /* Navy */
+    margin-bottom: 0.5rem;
+}
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+table th, table td {
+    border: 1px solid #A6DFF5; /* Light blue borders */
+    padding: 0.8rem;
+    text-align: left;
+}
+table th {
+    background-color: #00165A; /* Navy header */
+    color: #FFFFFF;
+}
+table tr:nth-child(even) {
+    background-color: #F2F2F2; /* Subtle alternate row shading */
+}
+
+
+
+
+
+
+
+
+
+
+
