@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock title %}
+
+{% block content %}
+<h2>{{ post.title }}</h2>
+<p>By {{ post.author }} on {{ post.created_at }}</p>
+<p>{{ post.content }}</p>
+{% if user == post.author %}
+    <a href="{% url 'edit_post' post.pk %}">Edit Post</a>
+{% endif %}
+<a href="{% url 'post_list' %}">Back to Posts</a>
+{% endblock content %}

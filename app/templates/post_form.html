@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Create/Edit Post{% endblock title %}
+
+{% block content %}
+<h2>Create/Edit Post</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+<a href="{% url 'post_list' %}">Cancel</a>
+{% endblock content %}
