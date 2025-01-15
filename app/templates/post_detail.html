@@ -19,6 +19,7 @@
     {{ comment_form.as_p }}
     <button type="submit">Submit</button>
 </form>
+<a href="{% url 'post_list' %}">Return to Blog</a>
 {% else %}
 <p>You must <a href="{% url 'Login' %}">log in</a> to comment.</p>
 {% endif %}
