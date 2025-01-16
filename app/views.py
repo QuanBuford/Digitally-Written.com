@@ -112,16 +112,11 @@ def edit_post(request, pk):
     return render(request, 'post_form.html', {'form': form})
 
 @login_required
-def delete_post_confirmation(request, pk):  # Use pk as the parameter name
+def delete_post_confirmation(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    
-    # Only allow the post author or superuser to delete the post
     if request.user != post.author and not request.user.is_superuser:
         return redirect('post_list')
-
-    # If it's a POST request, delete the post
     if request.method == 'POST':
         post.delete()
         return redirect('post_list')
-    
     return render(request, 'delete_post_confirmation.html', {'post': post})

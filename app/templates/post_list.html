@@ -10,7 +10,6 @@
 
                 {% comment %} Show Delete button for treyshel@gmail.com or superuser {% endcomment %}
                 {% if user.email == 'treyshel@gmail.com' or user.is_superuser %}
-                    <!-- Link to the confirmation page for deletion -->
                     <a href="{% url 'delete_post_confirmation' post.pk %}" onclick="return confirm('Are you sure you want to delete this post?')">Delete Post</a>
                 {% endif %}
             </li>
