@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Are you sure you want to log out?</h2>
+    <!-- Only the button for triggering the modal -->
+    <a href="#" onclick="showModal()">Logout</a>
+    <a href="{% url 'home' %}">Cancel</a>  <!-- Redirect to home page if they cancel -->
+
+    <!-- The Modal -->
+    <div id="logoutModal" class="modal">
+        <div class="modal-container">
+            <div class="modal-content">
+                <h2>Are you sure you want to log out?</h2>
+                <button onclick="window.location.href='{% url 'logout' %}'">Yes</button>
+                <button onclick="hideModal()">No</button>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<script>
+    // Show the modal
+    function showModal() {
+        document.getElementById('logoutModal').style.display = 'flex';
+    }
+
+    // Hide the modal
+    function hideModal() {
+        document.getElementById('logoutModal').style.display = 'none';
+    }
+</script>

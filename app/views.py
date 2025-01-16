@@ -4,14 +4,13 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
+from django.contrib.auth.decorators import login_required
 
-
-# Create your views here.
-
+# Home page view
 def home(request):
     return render(request, "home.html")
 
-
+# Login page view
 def login_PAGE(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -24,6 +23,7 @@ def login_PAGE(request):
             messages.error(request, 'Invalid username or password.')
     return render(request, 'login.html')
 
+# Register page view
 def register_PAGE(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -45,14 +45,22 @@ def register_PAGE(request):
 
     return render(request, 'register.html')
 
+# Logout page view
 def logout_PAGE(request):
     logout(request)
     return redirect('home')
 
+# Logout confirmation page
+@login_required
+def logout_confirmation(request):
+    return render(request, 'logout_confirmation.html')
+
+# Post list view
 def post_list(request):
     posts = Post.objects.all().order_by('-created_at')
     return render(request, 'post_list.html', {'posts': posts})
 
+# Post detail view
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     comments = post.comments.all()
@@ -71,11 +79,9 @@ def post_detail(request, pk):
         'post': post,
         'comments': comments,
         'comment_form': comment_form
-    })  
-   
+    })
 
-
-
+# Create post view
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -89,7 +95,7 @@ def create_post(request):
         form = PostForm()
     return render(request, 'post_form.html', {'form': form})
 
-
+# Edit post view
 def edit_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.user != post.author:
@@ -104,3 +110,18 @@ def edit_post(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'post_form.html', {'form': form})
+
+@login_required
+def delete_post_confirmation(request, pk):  # Use pk as the parameter name
+    post = get_object_or_404(Post, pk=pk)
+    
+    # Only allow the post author or superuser to delete the post
+    if request.user != post.author and not request.user.is_superuser:
+        return redirect('post_list')
+
+    # If it's a POST request, delete the post
+    if request.method == 'POST':
+        post.delete()
+        return redirect('post_list')
+    
+    return render(request, 'delete_post_confirmation.html', {'post': post})

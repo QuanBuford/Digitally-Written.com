@@ -17,12 +17,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import app.views
+from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', app.views.home, name ='home'),
+    path('', app.views.home, name='home'),
     path('login/', app.views.login_PAGE, name='Login'),
     path('logout/', app.views.logout_PAGE, name='logout'),
+   
+    # amanda logout confirmation page
+    path('logout/confirmation/', views.logout_confirmation, name='logout_confirmation'),  
+
+    # amanda to reference logout_PAGE 
+    path('logout/execute/', views.logout_PAGE, name='logout'),  
+
+    # for trey to be able to only delete posts
+    path('post/<int:pk>/delete/', views.delete_post_confirmation, name='delete_post'),
+
+    path('post/delete/confirmation/<int:post_id>/', views.delete_post_confirmation, name='delete_post_confirmation'),  # This was commented out
+
     path('register/', app.views.register_PAGE, name='register'),
     path('post/', app.views.post_list, name='post_list'),
     path('post/<int:pk>/', app.views.post_detail, name='post_detail'),
