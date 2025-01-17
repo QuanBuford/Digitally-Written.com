@@ -26,25 +26,34 @@ urlpatterns = [
     path('logout/', app.views.logout_PAGE, name='logout'),
    
 
-    path('login-signup/', views.login_signup_prompt, name='login_signup_prompt'),
+    path('login-signup/', app.views.login_signup_prompt, name='login_signup_prompt'),
     # amanda logout confirmation page
-    path('logout/confirmation/', views.logout_confirmation, name='logout_confirmation'),  
+    path('logout/confirmation/', app.views.logout_confirmation, name='logout_confirmation'),  
 
     # amanda to reference logout_PAGE 
-    path('logout/execute/', views.logout_PAGE, name='logout'),  
+    path('logout/execute/', app.views.logout_PAGE, name='logout'),  
 
     # for trey to be able to only delete posts
+<<<<<<< HEAD
     path('post/<int:pk>/delete/', views.delete_post_confirmation, name='delete_post'),
     # path('user-management/', views.user_management, name='user_management'),
     # path('user/create/', views.create_user, name='create_user'),
+=======
+    path('post/<int:pk>/delete/', app.views.delete_post_confirmation, name='delete_post'),
+    # path('user-management/', app.views.user_management, name='user_management'),
+    # path('user/create/', app.views.create_user, name='create_user'),
+>>>>>>> 4ac783771726b51577ea4178731fc395f63c5555
     # path('user/delete/<int:user_id>/', views.delete_user, name='delete_user'),
 
 
-    path('post/delete/confirmation/<int:post_id>/', views.delete_post_confirmation, name='delete_post_confirmation'),  # This was commented out
+    path('post/delete/confirmation/<int:post_id>/', app.views.delete_post_confirmation, name='delete_post_confirmation'),  # This was commented out
 
     path('register/', app.views.register_PAGE, name='register'),
+    
     path('post/', app.views.post_list, name='post_list'),
     path('post/<int:pk>/', app.views.post_detail, name='post_detail'),
     path('post/<int:pk>/edit/', app.views.edit_post, name='edit_post'),
     path('post/new/', app.views.create_post, name='create_post'),
+    path('profile/', app.views.profile_view, name='profile_view'),
+    path('edit/', app.views.edit_profile, name='edit_profile'),
 ]

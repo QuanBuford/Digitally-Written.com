@@ -1,20 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Blog Posts</h2>
-{% if messages %}
-<ul>
-    {% for message in messages %}
-        <li>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
 
-<ul>
-    {% for post in posts %}
-        <li>
-            <h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>
-            <p>By {{ post.author }} on {{ post.created_at }}</p>
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+    <h2>Blog Posts</h2>
+    <ul>
+        {% for post in posts %}
+            <h2>{{ post.title }}</h2>
+            <p>By <a href="{% url 'profile_view' %}">{{ post.author.username }}</a></p>
+            <p>{{ post.content }}</p>
+        {% endfor %}
+        {% for post in posts %}
+            <li>
+                <h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>
+                <p>By {{ post.author }} on {{ post.created_at }}</p>
 
             {% comment %} Show Delete button for treyshel@gmail.com or superuser {% endcomment %}
             {% if user.email == 'treyshel@gmail.com' or user.is_superuser %}

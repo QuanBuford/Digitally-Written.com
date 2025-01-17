@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import Post, Comment
-from .forms import PostForm, CommentForm
+from .models import Post, Comment, UserProfile
+from .forms import PostForm, CommentForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
 #from django.contrib.auth.decorators import user_passes_test
 
@@ -43,9 +43,35 @@ def register_PAGE(request):
         user = User.objects.create_user(username=username, password=password)
         login(request, user)
         messages.success(request, "Account created successfully!")
-        return redirect('Login')
+        return redirect('post_list')
 
     return render(request, 'register.html')
+
+def profile_view(request):
+    
+    user = get_object_or_404(User, username=request.user.username)
+    print(f"USER {user}")
+    profile = UserProfile.objects.filter(user=user).first()
+    posts = Post.objects.filter(author=user).order_by('-created_at')
+    return render(request, 'profile.html', {'profile': profile, 'posts': posts})
+
+@login_required
+def edit_profile(request):
+    print("here")
+    user = get_object_or_404(User, username=request.user.username)
+    print(f"User {request.user}")
+    profile = get_object_or_404(UserProfile, user=request.user)
+    print("here again")
+    if request.method == 'POST':
+
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully.')
+            return redirect('profile', username=request.user.username)
+    else:
+        form = UserProfileForm(instance=profile)
+    return render(request, 'edit_profile.html', {'form': form})
 
 # Logout page view
 def logout_PAGE(request):
@@ -65,10 +91,8 @@ def post_list(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    comments = Comment.objects.filter(post=post)  # Retrieve comments for the post
-    comment_form = CommentForm()
-
-    if request.method == "POST":
+    comments = Comment.objects.filter(post=post)
+    if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
@@ -133,7 +157,11 @@ def delete_post_confirmation(request, pk):
 
 
 
+<<<<<<< HEAD
 #FOR USER MANAGEMENT
+=======
+# #FOR USER MANAGEMENT
+>>>>>>> 4ac783771726b51577ea4178731fc395f63c5555
 # def is_superuser(user):
 #     return user.is_superuser
 
@@ -144,7 +172,11 @@ def delete_post_confirmation(request, pk):
 #     return render(request, 'user_management.html', {'users': users})
 
 
+<<<<<<< HEAD
 # @user_passes_test(is_superuser)
+=======
+# # @user_passes_test(is_superuser)
+>>>>>>> 4ac783771726b51577ea4178731fc395f63c5555
 # def create_user(request):
 #     if request.method == 'POST':
 #         username = request.POST.get('username')
@@ -166,7 +198,11 @@ def delete_post_confirmation(request, pk):
 
 # @user_passes_test(is_superuser)
 # def delete_user(request, user_id):
+<<<<<<< HEAD
 #     user = get_object_or_404(User, id=user_id)  
+=======
+#     user = get_object_or_404(User, id=user_id)  # Ensure user exists
+>>>>>>> 4ac783771726b51577ea4178731fc395f63c5555
 #     user.delete()  # Delete the user
 #     messages.success(request, f'User {user.username} has been deleted.')
 #     return redirect('user_management')
