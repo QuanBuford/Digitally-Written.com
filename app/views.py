@@ -97,6 +97,8 @@ def create_post(request):
         form = PostForm()
     return render(request, 'post_form.html', {'form': form})
 
+
+
 # Edit post view
 def edit_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -146,11 +148,11 @@ def create_user(request):
 
         if password != confirm_password:
             messages.error(request, "Passwords do not match.")
-            return render(request, 'admin/create_user.html')
+            return render(request, 'create_user.html')
 
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username already exists.")
-            return render(request, 'admin/create_user.html')
+            return render(request, 'create_user.html')
 
         user = User.objects.create_user(username=username, password=password)
         messages.success(request, "Account created successfully!")
@@ -163,3 +165,7 @@ def delete_user(request, user_id):
     user.delete()  # Delete the user
     messages.success(request, f'User {user.username} has been deleted.')
     return redirect('user_management')
+
+
+def login_signup_prompt(request):
+    return render(request, 'login_signup_prompt.html')

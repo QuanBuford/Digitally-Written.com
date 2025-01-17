@@ -10,31 +10,23 @@
 </head>
 <body>
     <header>
-        <h1>Digitally-Written</h1>
+        <div class="header-container">
+            <h1>Digitally-Written</h1>
+        </div>
     </header>
-    
-    <main>
-        {% block content %}
-        <!-- content of individual pages will be inserted -->
-        {% endblock %}
 
-        {% if user.is_authenticated %}
-            <p>Welcome, {{ user.username }}!</p>
-            <a href="{% url 'logout_confirmation' %}">Logout</a>  <!-- Logout Confirmation Page -->
-            
-            {% if user.is_superuser %}
-                <!--link for superuser -->
-                <a href="{% url 'user_management' %}">Manage Users</a>  
-            {% endif %}
-        {% else %}
-            <!-- Link for non authorized users -->
-            <a href="{% url 'Login' %}">Login</a>
-            <a href="{% url 'register' %}">Register</a>
-        {% endif %}
+    <main>
+        <div class="main-container">
+            {% block content %}
+                <a href="{% url 'login_signup_prompt' %}" class="btn cta-btn">Check it out</a>
+            {% endblock %}
+        </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 Digitally-Written</p>
+        <div class="footer-container">
+            <p>&copy; 2025 Digitally-Written</p>
+        </div>
     </footer>
 </body>
 </html>

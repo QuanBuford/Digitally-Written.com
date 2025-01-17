@@ -25,6 +25,8 @@ urlpatterns = [
     path('login/', app.views.login_PAGE, name='Login'),
     path('logout/', app.views.logout_PAGE, name='logout'),
    
+
+    path('login-signup/', views.login_signup_prompt, name='login_signup_prompt'),
     # amanda logout confirmation page
     path('logout/confirmation/', views.logout_confirmation, name='logout_confirmation'),  
 

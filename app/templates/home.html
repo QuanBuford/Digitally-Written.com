@@ -1,10 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Welcome to Digitally-Written</h2>
-    <p>Where students and alumni connect!</p>
+    <section class="welcome-section">
+        <h2>Welcome to Digitally-Written</h2>
+        <p class="sub-heading">Where students and alumni connect!</p>
+    </section>
 
-    <p>
-        Welcome to Digitally Written! A great blog for the current and previous students to connect.
-    </p>
+    <section class="cta-section">
+        <h3>Join the Community</h3>
+        <div class="cta-links">
+            <a href="{% url 'login_signup_prompt' %}" class="btn cta-btn">Check it out</a>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <p>Digitally Written is the perfect place for current and past students to engage, share ideas, and stay connected. Join today and be part of our growing community!</p>
+    </section>
 {% endblock %}
