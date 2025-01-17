@@ -35,9 +35,9 @@ urlpatterns = [
 
     # for trey to be able to only delete posts
     path('post/<int:pk>/delete/', app.views.delete_post_confirmation, name='delete_post'),
-    path('user-management/', app.views.user_management, name='user_management'),
-    path('user/create/', app.views.create_user, name='create_user'),
-    path('user/delete/<int:user_id>/', views.delete_user, name='delete_user'),
+    # path('user-management/', app.views.user_management, name='user_management'),
+    # path('user/create/', app.views.create_user, name='create_user'),
+    # path('user/delete/<int:user_id>/', views.delete_user, name='delete_user'),
 
 
     path('post/delete/confirmation/<int:post_id>/', app.views.delete_post_confirmation, name='delete_post_confirmation'),  # This was commented out

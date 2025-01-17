@@ -153,43 +153,43 @@ def delete_post_confirmation(request, pk):
 
 
 
-#FOR USER MANAGEMENT
-def is_superuser(user):
-    return user.is_superuser
+# #FOR USER MANAGEMENT
+# def is_superuser(user):
+#     return user.is_superuser
 
-@user_passes_test(is_superuser)
-def user_management(request):
-    print("User management view accessed") #Devbug
-    users = User.objects.all()
-    return render(request, 'user_management.html', {'users': users})
+# @user_passes_test(is_superuser)
+# def user_management(request):
+#     print("User management view accessed") #Devbug
+#     users = User.objects.all()
+#     return render(request, 'user_management.html', {'users': users})
 
 
-@user_passes_test(is_superuser)
-def create_user(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        confirm_password = request.POST.get('confirm_password')
+# # @user_passes_test(is_superuser)
+# def create_user(request):
+#     if request.method == 'POST':
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         confirm_password = request.POST.get('confirm_password')
 
-        if password != confirm_password:
-            messages.error(request, "Passwords do not match.")
-            return render(request, 'create_user.html')
+#         if password != confirm_password:
+#             messages.error(request, "Passwords do not match.")
+#             return render(request, 'create_user.html')
 
-        if User.objects.filter(username=username).exists():
-            messages.error(request, "Username already exists.")
-            return render(request, 'create_user.html')
+#         if User.objects.filter(username=username).exists():
+#             messages.error(request, "Username already exists.")
+#             return render(request, 'create_user.html')
 
-        user = User.objects.create_user(username=username, password=password)
-        messages.success(request, "Account created successfully!")
-        return redirect('user_management')
+#         user = User.objects.create_user(username=username, password=password)
+#         messages.success(request, "Account created successfully!")
+#         return redirect('user_management')
     
 
-@user_passes_test(is_superuser)
-def delete_user(request, user_id):
-    user = get_object_or_404(User, id=user_id)  # Ensure user exists
-    user.delete()  # Delete the user
-    messages.success(request, f'User {user.username} has been deleted.')
-    return redirect('user_management')
+# @user_passes_test(is_superuser)
+# def delete_user(request, user_id):
+#     user = get_object_or_404(User, id=user_id)  # Ensure user exists
+#     user.delete()  # Delete the user
+#     messages.success(request, f'User {user.username} has been deleted.')
+#     return redirect('user_management')
 
 
 def login_signup_prompt(request):
