@@ -5,22 +5,31 @@
 <p>By {{ post.author }} on {{ post.created_at }}</p>
 <p>{{ post.content }}</p>
 
-<h2>Comments</h2>
-<ul>
-    {% for comment in comments %}
-        <li><strong>{{ comment.author }}</strong>: {{ comment.content }}</li>
-    {% endfor %}
-</ul>
+<!-- Comments Section -->
+<div class="comments-section">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        {% for comment in comments %}
+            <li class="comment-bubble">
+                <strong>{{ comment.author.username }}:</strong> <!-- Display the comment author's username -->
+                <p>{{ comment.text }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
 
+<!-- Add Comment Section -->
 {% if user.is_authenticated %}
-<h3>Add a Comment</h3>
-<form method="post">
-    {% csrf_token %}
-    {{ comment_form.as_p }}
-    <button type="submit">Submit</button>
-</form>
-<a href="{% url 'post_list' %}">Return to Blog</a>
+    <h3>Add a Comment</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
 {% else %}
-<p>You must <a href="{% url 'Login' %}">log in</a> to comment.</p>
+    <p>You must <a href="{% url 'Login' %}">log in</a> to comment.</p>
 {% endif %}
-{% endblock content %}
+
+<!-- Return to Blog -->
+<a href="{% url 'post_list' %}">Return to Blog</a>
+{% endblock %}

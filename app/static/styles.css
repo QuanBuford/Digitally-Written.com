@@ -140,3 +140,41 @@ header h1 {
 .btn:hover {
     background-color: #603913;
 }
+<<<<<<< HEAD
+=======
+}
+.comments-section {
+    margin-top: 20px;
+}
+
+.comments-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.comment-bubble {
+    background-color: #f0f8ff; /* Light blue background */
+    border: 1px solid #dcdcdc; /* Subtle border for definition */
+    border-radius: 15px; /* Rounded edges for bubble effect */
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    max-width: 70%; /* Adjust width */
+    word-wrap: break-word; /* Ensure long text wraps within the bubble */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.comment-bubble strong {
+    color: #0074d9; /* Email text color */
+    font-weight: bold;
+    display: block; /* Ensure the email is on a new line */
+    margin-bottom: 5px;
+}
+
+.comment-bubble p {
+    margin: 0; /* Remove default paragraph margin */
+}
+
+.comment-bubble:nth-child(odd) {
+    background-color: #e6f7ff; /* Alternate background color for odd comments */
+}
+>>>>>>> 112d074abb3ba042a2a96c0b560b6732b36d425e

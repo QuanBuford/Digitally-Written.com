@@ -62,26 +62,27 @@ def post_list(request):
     posts = Post.objects.all().order_by('-created_at')
     return render(request, 'post_list.html', {'posts': posts})
 
-# Post detail view
+
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    comments = post.comments.all()
-    if request.method == 'POST':
+    comments = Comment.objects.filter(post=post)  # Retrieve comments for the post
+    comment_form = CommentForm()
+
+    if request.method == "POST":
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.post = post
-            comment.author = request.user
-            comment.save()
-            messages.success(request, 'Comment added successfully.')
-            return redirect('post_detail', pk=pk)
-    else:
-        comment_form = CommentForm()
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.author = request.user  # Assign the logged-in user
+            new_comment.save()
+            return redirect('post_detail', pk=post.pk)
+
     return render(request, 'post_detail.html', {
         'post': post,
         'comments': comments,
-        'comment_form': comment_form
+        'comment_form': comment_form,
     })
+
 
 # Create post view
 def create_post(request):
