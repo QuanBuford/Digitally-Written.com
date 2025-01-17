@@ -37,8 +37,11 @@ urlpatterns = [
     path('post/delete/confirmation/<int:post_id>/', views.delete_post_confirmation, name='delete_post_confirmation'),  # This was commented out
 
     path('register/', app.views.register_PAGE, name='register'),
+    
     path('post/', app.views.post_list, name='post_list'),
     path('post/<int:pk>/', app.views.post_detail, name='post_detail'),
     path('post/<int:pk>/edit/', app.views.edit_post, name='edit_post'),
     path('post/new/', app.views.create_post, name='create_post'),
+    path('profile/', app.views.profile_view, name='profile_view'),
+    path('edit/', app.views.edit_profile, name='edit_profile'),
 ]

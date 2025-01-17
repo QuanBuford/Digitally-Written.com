@@ -1,8 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
     <h2>Blog Posts</h2>
     <ul>
+        {% for post in posts %}
+            <h2>{{ post.title }}</h2>
+            <p>By <a href="{% url 'profile_view' %}">{{ post.author.username }}</a></p>
+            <p>{{ post.content }}</p>
+        {% endfor %}
         {% for post in posts %}
             <li>
                 <h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>

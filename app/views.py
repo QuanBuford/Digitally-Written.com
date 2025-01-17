@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import Post, Comment
-from .forms import PostForm, CommentForm
+from .models import Post, Comment, UserProfile
+from .forms import PostForm, CommentForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
 
 # Home page view
@@ -41,9 +41,35 @@ def register_PAGE(request):
         user = User.objects.create_user(username=username, password=password)
         login(request, user)
         messages.success(request, "Account created successfully!")
-        return redirect('Login')
+        return redirect('post_list')
 
     return render(request, 'register.html')
+
+def profile_view(request):
+    
+    user = get_object_or_404(User, username=request.user.username)
+    print(f"USER {user}")
+    profile = UserProfile.objects.filter(user=user).first()
+    posts = Post.objects.filter(author=user).order_by('-created_at')
+    return render(request, 'profile.html', {'profile': profile, 'posts': posts})
+
+@login_required
+def edit_profile(request):
+    print("here")
+    user = get_object_or_404(User, username=request.user.username)
+    print(f"User {request.user}")
+    profile = get_object_or_404(UserProfile, user=request.user)
+    print("here again")
+    if request.method == 'POST':
+
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully.')
+            return redirect('profile', username=request.user.username)
+    else:
+        form = UserProfileForm(instance=profile)
+    return render(request, 'edit_profile.html', {'form': form})
 
 # Logout page view
 def logout_PAGE(request):
@@ -63,7 +89,7 @@ def post_list(request):
 # Post detail view
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    comments = post.comments.all()
+    comments = Comment.objects.filter(post=post)
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
