@@ -1,39 +1,47 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Blog Posts</h2>
-    <ul>
-        {% for post in posts %}
-            <li>
-                <h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>
-                <p>By {{ post.author }} on {{ post.created_at }}</p>
+<h2>Blog Posts</h2>
+{% if messages %}
+<ul>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 
-                {% comment %} Show Delete button for treyshel@gmail.com or superuser {% endcomment %}
-                {% if user.email == 'treyshel@gmail.com' or user.is_superuser %}
-                    <a href="{% url 'delete_post_confirmation' post.pk %}" onclick="return confirm('Are you sure you want to delete this post?')">Delete Post</a>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+<ul>
+    {% for post in posts %}
+        <li>
+            <h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>
+            <p>By {{ post.author }} on {{ post.created_at }}</p>
 
-    <div>
-        <a href="{% url 'create_post' %}">
-            <button>Create a New Post</button>
-        </a>
-    </div>
+            {% comment %} Show Delete button for treyshel@gmail.com or superuser {% endcomment %}
+            {% if user.email == 'treyshel@gmail.com' or user.is_superuser %}
+                <a href="{% url 'delete_post_confirmation' post.pk %}" onclick="return confirm('Are you sure you want to delete this post?')">Delete Post</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
 
-    <!-- Pagination -->
-    <div class="pagination">
-        {% if posts.has_previous %}
-            <a href="?page=1">&laquo; First</a>
-            <a href="?page={{ posts.previous_page_number }}">Previous</a>
-        {% endif %}
+<div>
+    <a href="{% url 'create_post' %}">
+        <button>Create a New Post</button>
+    </a>
+</div>
 
-        <span>Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+<!-- Pagination -->
+<div class="pagination">
+    {% if posts.has_previous %}
+        <a href="?page=1">&laquo; First</a>
+        <a href="?page={{ posts.previous_page_number }}">Previous</a>
+    {% endif %}
 
-        {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}">Next</a>
-            <a href="?page={{ posts.paginator.num_pages }}">Last &raquo;</a>
-        {% endif %}
-    </div>
+    <span>Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+
+    {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}">Next</a>
+        <a href="?page={{ posts.paginator.num_pages }}">Last &raquo;</a>
+    {% endif %}
+</div>
 {% endblock %}

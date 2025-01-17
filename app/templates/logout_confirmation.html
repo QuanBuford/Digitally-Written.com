@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Are you sure you want to log out?</h2>
+    {% comment %} <h2>Are you sure you want to log out?</h2>
     <a href="#" onclick="showModal()">Logout</a>
-    <a href="{% url 'home' %}">Cancel</a>  <!-- Redirect to home page if they cancel -->
+    <a href="{% url 'home' %}">Cancel</a>  <!-- Redirect to home page if they cancel --> {% endcomment %}
 
     <!-- The Modal for logout -->
     <div id="logoutModal" class="modal">
