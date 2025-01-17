@@ -157,11 +157,7 @@ def delete_post_confirmation(request, pk):
 
 
 
-<<<<<<< HEAD
-#FOR USER MANAGEMENT
-=======
 # #FOR USER MANAGEMENT
->>>>>>> 4ac783771726b51577ea4178731fc395f63c5555
 # def is_superuser(user):
 #     return user.is_superuser
 
@@ -172,11 +168,7 @@ def delete_post_confirmation(request, pk):
 #     return render(request, 'user_management.html', {'users': users})
 
 
-<<<<<<< HEAD
-# @user_passes_test(is_superuser)
-=======
 # # @user_passes_test(is_superuser)
->>>>>>> 4ac783771726b51577ea4178731fc395f63c5555
 # def create_user(request):
 #     if request.method == 'POST':
 #         username = request.POST.get('username')
@@ -198,11 +190,7 @@ def delete_post_confirmation(request, pk):
 
 # @user_passes_test(is_superuser)
 # def delete_user(request, user_id):
-<<<<<<< HEAD
-#     user = get_object_or_404(User, id=user_id)  
-=======
 #     user = get_object_or_404(User, id=user_id)  # Ensure user exists
->>>>>>> 4ac783771726b51577ea4178731fc395f63c5555
 #     user.delete()  # Delete the user
 #     messages.success(request, f'User {user.username} has been deleted.')
 #     return redirect('user_management')

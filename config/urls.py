@@ -34,15 +34,9 @@ urlpatterns = [
     path('logout/execute/', app.views.logout_PAGE, name='logout'),  
 
     # for trey to be able to only delete posts
-<<<<<<< HEAD
-    path('post/<int:pk>/delete/', views.delete_post_confirmation, name='delete_post'),
-    # path('user-management/', views.user_management, name='user_management'),
-    # path('user/create/', views.create_user, name='create_user'),
-=======
     path('post/<int:pk>/delete/', app.views.delete_post_confirmation, name='delete_post'),
     # path('user-management/', app.views.user_management, name='user_management'),
     # path('user/create/', app.views.create_user, name='create_user'),
->>>>>>> 4ac783771726b51577ea4178731fc395f63c5555
     # path('user/delete/<int:user_id>/', views.delete_user, name='delete_user'),
 
 
