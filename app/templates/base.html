@@ -6,27 +6,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <title>{% block title %}Digitally-Written{% endblock title %}</title>
+    <title>{% block title %}Digitally-Written{% endblock %}</title>
 </head>
 <body>
     <header>
-        <h1>Digitally-Written</h1>
+        <div class="header-container">
+            <h1>Digitally-Written</h1>
+        </div>
     </header>
-    <main>
-        {% block content %}{% endblock content %}
-        {% if user.is_authenticated %}
-            <p>Welcome, {{ user.username }}!</p>
-            <li><a href="{% url 'profile_view' %}">My Profile</a></li>
-            <a href="{% url 'logout_confirmation' %}">Logout</a>  <!-- Logout Confirmation Page -->
-            <li><a href="{% url 'post_list' %}">Home</a></li>
 
-        {% else %}
-            <a href="{% url 'Login' %}">Login</a>
-            <a href="{% url 'register' %}">Register</a>
-        {% endif %}
+    <main>
+        <div class="main-container">
+            {% block content %}
+                <a href="{% url 'login_signup_prompt' %}" class="btn cta-btn">Check it out</a>
+            {% endblock %}
+        </div>
     </main>
+
     <footer>
-        <p>&copy; 2025 Digitally-Written</p>
+        <div class="footer-container">
+            <p>&copy; 2025 Digitally-Written</p>
+        </div>
     </footer>
 </body>
 </html>

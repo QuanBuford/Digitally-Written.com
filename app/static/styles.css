@@ -1,170 +1,180 @@
+/* General Layout */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #A6DFF5; /* Light blue as the base background */
-    color: #00165A; /* Navy for primary text */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #A6DFF5;
+    color: #00165A;
     margin: 0;
     padding: 0;
-    line-height: 1.6;
+    line-height: 1.8;
 }
-/* Header */
+
 header {
-    background-color: #00165A; /* Navy */
-    color: #FFFFFF;
-    padding: 1rem;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-header h1 {
-    margin: 0;
-    font-size: 2rem;
-    text-transform: uppercase;
-}
-/* Navigation Bar */
-nav {
-    background-color: #603913; /* Brown */
-    padding: 0.5rem 1rem;
-    text-align: center;
-}
-nav a {
-    color: #FFFFFF;
-    text-decoration: none;
-    margin: 0 1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: color 0.3s ease-in-out;
-}
-nav a:hover {
-    color: #A6DFF5; /* Light blue hover effect */
-}
-/* Main Content */
-main {
-    padding: 2rem;
-    background-color: #FFFFFF; /* White background for content area */
-    margin: 1rem auto;
-    border-radius: 8px;
-    max-width: 800px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-/* Buttons */
-button, .btn {
-    background-color: #00165A; /* Navy */
-    color: #FFFFFF;
-    border: none;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-}
-button:hover, .btn:hover {
-    background-color: #603913; /* Brown */
-}
-
-input, textarea, select {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #00165A; 
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-input:focus, textarea:focus, select:focus {
-    outline: none;
-    border-color: #603913; 
-    box-shadow: 0 0 4px #A6DFF5; 
-
-
-footer {
     background-color: #00165A;
     color: #FFFFFF;
+    padding: 2rem;
     text-align: center;
-    padding: 1rem;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    margin-top: 2rem;
-}
-footer p {
-    margin: 0;
-    font-size: 0.9rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-.card {
-    background-color: #FFFFFF;
-    border: 1px solid #A6DFF5;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.card h3 {
-    color: #00165A;
-    margin-bottom: 0.5rem;
+header h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1rem 0;
-}
-table th, table td {
-    border: 1px solid #A6DFF5;
-    padding: 0.8rem;
-    text-align: left;
-}
-table th {
-    background-color: #00165A; 
+/* Welcome Section */
+.welcome-section {
+    background: linear-gradient(45deg, #A6DFF5, #6CC4D2);
     color: #FFFFFF;
-}
-table tr:nth-child(even) {
-    background-color: #F2F2F2;
-}
-
-
-
-/* Modal background */
-#logoutModal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
-}
-
-/* amanda did this css for the logout model */
-/* Modal styling */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-container {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 5rem 2rem;
     text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-button {
-    margin: 10px;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
+.heading-animation {
+    font-size: 3rem;
+    font-weight: bold;
+    animation: fadeIn 2s ease-in-out;
 }
 
-button:hover {
-    background-color: #45a049;
+.sub-heading {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    font-weight: 300;
 }
+
+/* CTA Section */
+.cta-section {
+    text-align: center;
+    margin-top: 4rem;
+    padding: 2rem;
+    background-color: #ffffff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+.cta-section h3 {
+    font-size: 2.5rem;
+    color: #00165A;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.cta-btn {
+    display: inline-block;
+    margin-top: 2rem;
+    background-color: #00165A;
+    color: #ffffff;
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cta-btn:hover {
+    background-color: #A6DFF5;
+    color: #00165A;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* About Section */
+.about-section {
+    text-align: center;
+    padding: 3rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 4rem;
+}
+
+.about-section p {
+    font-size: 1.2rem;
+    color: #00165A;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply fadeIn animation to an element */
+.fade-in {
+    animation: fadeIn 1s ease-out; /* Apply fadeIn animation for 1 second */
+}
+
+/* Button Styles */
+.btn {
+    display: inline-block;
+    background-color: #00165A;
+    color: #fff;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 2rem;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #603913;
+}
+<<<<<<< HEAD
+=======
+}
+.comments-section {
+    margin-top: 20px;
+}
+
+.comments-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.comment-bubble {
+    background-color: #f0f8ff; /* Light blue background */
+    border: 1px solid #dcdcdc; /* Subtle border for definition */
+    border-radius: 15px; /* Rounded edges for bubble effect */
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    max-width: 70%; /* Adjust width */
+    word-wrap: break-word; /* Ensure long text wraps within the bubble */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.comment-bubble strong {
+    color: #0074d9; /* Email text color */
+    font-weight: bold;
+    display: block; /* Ensure the email is on a new line */
+    margin-bottom: 5px;
+}
+
+.comment-bubble p {
+    margin: 0; /* Remove default paragraph margin */
+}
+
+.comment-bubble:nth-child(odd) {
+    background-color: #e6f7ff; /* Alternate background color for odd comments */
+}
+>>>>>>> 112d074abb3ba042a2a96c0b560b6732b36d425e

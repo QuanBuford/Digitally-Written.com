@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from .models import Post, Comment, UserProfile
 from .forms import PostForm, CommentForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+
 
 # Home page view
 def home(request):
@@ -86,26 +88,25 @@ def post_list(request):
     posts = Post.objects.all().order_by('-created_at')
     return render(request, 'post_list.html', {'posts': posts})
 
-# Post detail view
+
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     comments = Comment.objects.filter(post=post)
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.post = post
-            comment.author = request.user
-            comment.save()
-            messages.success(request, 'Comment added successfully.')
-            return redirect('post_detail', pk=pk)
-    else:
-        comment_form = CommentForm()
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.author = request.user  # Assign the logged-in user
+            new_comment.save()
+            return redirect('post_detail', pk=post.pk)
+
     return render(request, 'post_detail.html', {
         'post': post,
         'comments': comments,
-        'comment_form': comment_form
+        'comment_form': comment_form,
     })
+
 
 # Create post view
 def create_post(request):
@@ -120,6 +121,8 @@ def create_post(request):
     else:
         form = PostForm()
     return render(request, 'post_form.html', {'form': form})
+
+
 
 # Edit post view
 def edit_post(request, pk):
@@ -146,3 +149,48 @@ def delete_post_confirmation(request, pk):
         post.delete()
         return redirect('post_list')
     return render(request, 'delete_post_confirmation.html', {'post': post})
+
+
+
+
+#FOR USER MANAGEMENT
+def is_superuser(user):
+    return user.is_superuser
+
+@user_passes_test(is_superuser)
+def user_management(request):
+    print("User management view accessed") #Devbug
+    users = User.objects.all()
+    return render(request, 'user_management.html', {'users': users})
+
+
+@user_passes_test(is_superuser)
+def create_user(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match.")
+            return render(request, 'create_user.html')
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists.")
+            return render(request, 'create_user.html')
+
+        user = User.objects.create_user(username=username, password=password)
+        messages.success(request, "Account created successfully!")
+        return redirect('user_management')
+    
+
+@user_passes_test(is_superuser)
+def delete_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)  # Ensure user exists
+    user.delete()  # Delete the user
+    messages.success(request, f'User {user.username} has been deleted.')
+    return redirect('user_management')
+
+
+def login_signup_prompt(request):
+    return render(request, 'login_signup_prompt.html')

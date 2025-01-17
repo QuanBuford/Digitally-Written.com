@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="login-signup-prompt">
+        <h2>Please Login or Sign Up</h2>
+        <p>To access the full features of Digitally-Written, please log in or create an account.</p>
+        <div class="cta-buttons">
+            <a href="{% url 'Login' %}" class="btn">Login</a>
+            <a href="{% url 'register' %}" class="btn">Sign Up</a>
+        </div>
+    </div>
+{% endblock %}
