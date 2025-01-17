@@ -6,22 +6,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <title>{% block title %}Digitally-Written{% endblock title %}</title>
+    <title>{% block title %}Digitally-Written{% endblock %}</title>
 </head>
 <body>
     <header>
         <h1>Digitally-Written</h1>
     </header>
+    
     <main>
-        {% block content %}{% endblock content %}
+        {% block content %}
+        <!-- content of individual pages will be inserted -->
+        {% endblock %}
+
         {% if user.is_authenticated %}
             <p>Welcome, {{ user.username }}!</p>
             <a href="{% url 'logout_confirmation' %}">Logout</a>  <!-- Logout Confirmation Page -->
+            
+            {% if user.is_superuser %}
+                <!--link for superuser -->
+                <a href="{% url 'user_management' %}">Manage Users</a>  
+            {% endif %}
         {% else %}
+            <!-- Link for non authorized users -->
             <a href="{% url 'Login' %}">Login</a>
             <a href="{% url 'register' %}">Register</a>
         {% endif %}
     </main>
+
     <footer>
         <p>&copy; 2025 Digitally-Written</p>
     </footer>
