@@ -28,5 +28,17 @@
             <p>&copy; 2025 Digitally-Written</p>
         </div>
     </footer>
+
+    {% if messages %}
+        <script type="text/javascript">
+            window.onload = function() {
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                        alert("{{ message }}");  // Display popup message
+                    {% endif %}
+                {% endfor %}
+            };
+        </script>
+    {% endif %}
 </body>
 </html>

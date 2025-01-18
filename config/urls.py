@@ -16,38 +16,42 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-import app.views
 from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', app.views.home, name='home'),
-    path('login/', app.views.login_PAGE, name='Login'),
-    path('logout/', app.views.logout_PAGE, name='logout'),
-   
+    path('', views.home, name='home'),
+    path('login/', views.login_PAGE, name='Login'),
+    path('logout/', views.logout_PAGE, name='logout'),
+    path('login-signup/', views.login_signup_prompt, name='login_signup_prompt'),
 
-    path('login-signup/', app.views.login_signup_prompt, name='login_signup_prompt'),
-    # amanda logout confirmation page
-    path('logout/confirmation/', app.views.logout_confirmation, name='logout_confirmation'),  
+    # Logout confirmation page
+    path('logout/confirmation/', views.logout_confirmation, name='logout_confirmation'),
+    # Referencing logout_PAGE for actual logout
+    path('logout/execute/', views.logout_PAGE, name='logout'),
 
-    # amanda to reference logout_PAGE 
-    path('logout/execute/', app.views.logout_PAGE, name='logout'),  
-
-    # for trey to be able to only delete posts
-    path('post/<int:pk>/delete/', app.views.delete_post_confirmation, name='delete_post'),
-    # path('user-management/', app.views.user_management, name='user_management'),
-    # path('user/create/', app.views.create_user, name='create_user'),
-    # path('user/delete/<int:user_id>/', views.delete_user, name='delete_user'),
-
-
-    path('post/delete/confirmation/<int:post_id>/', app.views.delete_post_confirmation, name='delete_post_confirmation'),  # This was commented out
-
-    path('register/', app.views.register_PAGE, name='register'),
+    # For trey to be able to only delete posts
+    path('post/<int:pk>/delete/', views.delete_post_confirmation, name='delete_post'),
     
-    path('post/', app.views.post_list, name='post_list'),
-    path('post/<int:pk>/', app.views.post_detail, name='post_detail'),
-    path('post/<int:pk>/edit/', app.views.edit_post, name='edit_post'),
-    path('post/new/', app.views.create_post, name='create_post'),
-    path('profile/', app.views.profile_view, name='profile_view'),
-    path('edit/', app.views.edit_profile, name='edit_profile'),
+    # Block and unblock user, assign/remove moderator
+    path('block_user/<str:username>/', views.block_user, name='block_user'),
+    path('unblock_user/<str:username>/', views.unblock_user, name='unblock_user'),
+    path('assign_moderator/<str:username>/', views.assign_moderator, name='assign_moderator'),
+    path('remove_moderator/<str:username>/', views.remove_moderator, name='remove_moderator'),
+
+    # Post confirmation for deletion
+    path('post/delete/confirmation/<int:post_id>/', views.delete_post_confirmation, name='delete_post_confirmation'),
+
+    # Registration
+    path('register/', views.register_PAGE, name='register'),
+
+    # Post list and details
+    path('post/', views.post_list, name='post_list'),
+    path('post/<int:pk>/', views.post_detail, name='post_detail'),
+    path('post/<int:pk>/edit/', views.edit_post, name='edit_post'),
+    path('post/new/', views.create_post, name='create_post'),
+
+    # Profile views
+    path('profile/<str:username>/', views.profile_view, name='profile_view'),
+    path('profile/<str:username>/edit/', views.edit_profile, name='edit_profile'),  # Updated edit profile URL
 ]

@@ -14,9 +14,9 @@ class Post(models.Model):
         return self.title
 
 class Comment(models.Model):
-    content = models.TextField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_comments')  # related_name for author
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comments')  # related_name for user
+    content = models.TextField(default='Default comment text')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_comments') 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1) 
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -31,6 +31,8 @@ class UserProfile(models.Model):
     bio = models.TextField(blank=True, null=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     following = models.ManyToManyField('self', symmetrical=False, related_name='followers', blank=True)
-
+    is_moderator = models.BooleanField(default=False)  # Moderator status
+    is_blocked = models.BooleanField(default=False)    # Blocked status
+    blocked_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, related_name="blocked_users")  # Track who blocked the user
     def __str__(self):
-        return f"Something: {self.user.username}"
+        return f"{self.user.username}'s Profile"
