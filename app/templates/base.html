@@ -30,15 +30,17 @@
     </footer>
 
     {% if messages %}
-        <script type="text/javascript">
-            window.onload = function() {
-                {% for message in messages %}
-                    {% if message.tags == 'success' %}
-                        alert("{{ message }}");  // Display popup message
-                    {% endif %}
-                {% endfor %}
-            };
-        </script>
+        <div class="message-popup">
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <div class="success-message">{{ message }}</div>
+                {% elif message.tags == 'error' %}
+                    <div class="error-message">{{ message }}</div>
+                {% elif message.tags == 'info' %}
+                    <div class="info-message">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
     {% endif %}
 </body>
 </html>

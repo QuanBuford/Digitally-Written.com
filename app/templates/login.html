@@ -3,35 +3,43 @@
 {% block title %}Login{% endblock title %}
 
 {% block content %}
-<h2>Login to Your Account</h2>
+    <!-- Main container for centering content -->
+    <div class="centered-container">
+        <h2>Login to Your Account</h2>
 
-{% if messages %}
-    <ul>
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
+        {% if messages %}
+            <div class="message-container">
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
 
-<form method="post">
-    {% csrf_token %}
-    <div>
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="username" required>
+        <!-- Combined form and sign-up link inside a single container -->
+        <div class="cta-section">
+            <form method="post" class="login-form">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="username">Email:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <!-- Centered login button -->
+                <button type="submit" class="btn">Login</button>
+            </form>
+
+            <!-- Sign Up Link Button -->
+            <p class="signup-link">Don't have an account? <a href="{% url 'register' %}" class="btn">Create Account</a></p>
+        </div>
+
+        <!-- Additional login links (e.g., home link) -->
+        <div class="login-links">
+            <p><a href="{% url 'home' %}">Go back to Home</a></p>
+        </div>
     </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-    </div>
-    <button type="submit">Login</button>
-</form>
-
-<p>
-    <a href="{% url 'home' %}">Go back to Home</a>
-</p>
-
-<p>
-    Don't have an account? 
-    <a href="{% url 'register' %}" class="button">Create Account</a>
-</p>
 {% endblock content %}

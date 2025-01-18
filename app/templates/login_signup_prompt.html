@@ -1,12 +1,54 @@
-{% extends "base.html" %}
+{% load static %}
 
-{% block content %}
-    <div class="login-signup-prompt">
-        <h2>Please Login or Sign Up</h2>
-        <p>To access the full features of Digitally-Written, please log in or create an account.</p>
-        <div class="cta-buttons">
-            <a href="{% url 'Login' %}" class="btn">Login</a>
-            <a href="{% url 'register' %}" class="btn">Sign Up</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title>{% block title %}Digitally-Written{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Digitally-Written</h1>
         </div>
-    </div>
-{% endblock %}
+    </header>
+
+    <main>
+        <div class="main-container">
+            {% block content %}
+                <div class="login-signup-container">
+                    <p>Please Login or Sign Up</p>
+                    <p>To access the full features of Digitally-Written, please log in or create an account.</p>
+                    
+                    <div class="buttons-container">
+                        <a href="{% url 'login' %}" class="btn">Login</a>
+                        <a href="{% url 'register' %}" class="btn">Sign Up</a>
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 Digitally-Written</p>
+        </div>
+    </footer>
+
+    {% if messages %}
+        <div class="message-popup">
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <div class="success-message">{{ message }}</div>
+                {% elif message.tags == 'error' %}
+                    <div class="error-message">{{ message }}</div>
+                {% elif message.tags == 'info' %}
+                    <div class="info-message">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</body>
+</html>

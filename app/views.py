@@ -62,8 +62,8 @@ def profile_view(request, username):
 
 
 @login_required
-def edit_profile(request):
-    user = request.user
+def edit_profile(request, username):
+    user = get_object_or_404(User, username=username)
     try:
         profile, created = UserProfile.objects.get_or_create(user=user)
     except IntegrityError:
@@ -74,7 +74,7 @@ def edit_profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully.')
-            return redirect('profile_view')
+            return redirect('profile_view', username=username)
     else:
         form = UserProfileForm(instance=profile)
     return render(request, 'edit_profile.html', {'form': form})
@@ -92,8 +92,14 @@ def logout_confirmation(request):
 
 # Post list view
 def post_list(request):
-    posts = Post.objects.all().order_by('-created_at')
-    return render(request, 'post_list.html', {'posts': posts})
+    # Get all users and their posts
+    users = User.objects.all()
+    user_posts = {}
+
+    for user in users:
+        user_posts[user] = Post.objects.filter(author=user).order_by('-created_at')
+
+    return render(request, 'post_list.html', {'user_posts': user_posts})
 
 
 def post_detail(request, pk):
