@@ -3,7 +3,6 @@
 {% block title %}Login{% endblock title %}
 
 {% block content %}
-    <!-- Main container for centering content -->
     <div class="centered-container">
         <h2>Login to Your Account</h2>
 
@@ -17,7 +16,7 @@
             </div>
         {% endif %}
 
-        <!-- Combined form and sign-up link inside a single container -->
+        {% comment %} <!----> form and sign-up link inside a single container --> {% endcomment %}
         <div class="cta-section">
             <form method="post" class="login-form">
                 {% csrf_token %}
@@ -29,15 +28,11 @@
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-                <!-- Centered login button -->
                 <button type="submit" class="btn">Login</button>
             </form>
 
-            <!-- Sign Up Link Button -->
             <p class="signup-link">Don't have an account? <a href="{% url 'register' %}" class="btn">Create Account</a></p>
         </div>
-
-        <!-- Additional login links (e.g., home link) -->
         <div class="login-links">
             <p><a href="{% url 'home' %}">Go back to Home</a></p>
         </div>

@@ -27,21 +27,16 @@ urlpatterns = [
 
     # Logout confirmation page
     path('logout/confirmation/', views.logout_confirmation, name='logout_confirmation'),
-    # Referencing logout_PAGE for actual logout
-    path('logout/execute/', views.logout_PAGE, name='logout'),
 
-    # For trey to be able to only delete posts
-    path('post/<int:pk>/delete/', views.delete_post_confirmation, name='delete_post'),
-    
     # Block and unblock user, assign/remove moderator
     path('block_user/<str:username>/', views.block_user, name='block_user'),
     path('unblock_user/<str:username>/', views.unblock_user, name='unblock_user'),
     path('assign_moderator/<str:username>/', views.assign_moderator, name='assign_moderator'),
     path('remove_moderator/<str:username>/', views.remove_moderator, name='remove_moderator'),
 
-    # Post confirmation for deletion
-    path('post/delete/confirmation/<int:post_id>/', views.delete_post_confirmation, name='delete_post_confirmation'),
-
+    # Post confirmation for delete
+    path('post/<int:pk>/delete/confirmation/', views.delete_post_confirmation, name='delete_post_confirmation'),
+    path('post/<int:id>/delete/', views.delete_post, name='delete_post'),
     # Registration
     path('register/', views.register_PAGE, name='register'),
 

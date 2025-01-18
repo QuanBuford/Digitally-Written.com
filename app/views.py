@@ -111,8 +111,7 @@ def post_detail(request, pk):
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
             new_comment.post = post
-            new_comment.author = request.user  # Assign the logged-in user
-            new_comment.save()
+            new_comment.author = request.user 
             return redirect('post_detail', pk=post.pk)
     else:
         comment_form = CommentForm() 
@@ -158,7 +157,12 @@ def edit_post(request, pk):
     return render(request, 'post_form.html', {'form': form})
 
 
-
+def delete_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    if request.method == 'POST':
+        post.delete()
+        return redirect('post_list')  
+    return render(request, 'delete_post_conformation.html', {'post': post})
 
 
 @login_required
@@ -169,7 +173,7 @@ def delete_post_confirmation(request, pk):
     if request.method == 'POST':
         post.delete()
         return redirect('post_list')
-    return render(request, 'delete_post_confirmation.html', {'post': post})
+    return render(request, 'delete_post_conformation.html', {'post': post})
 
 
 
@@ -228,14 +232,11 @@ def block_user(request, username):
     if request.user.email != "treyshel@gmail.com" and not request.user.profile.is_moderator:
         messages.error(request, "You are not authorized to block users.")
         return redirect('home')
-
-    # Block user and set blocked_by field
     user_profile = get_object_or_404(UserProfile, user=user_to_block)
     user_profile.is_blocked = True
     user_profile.blocked_by = request.user  # Set the user who blocked them
     user_profile.save()
 
-    # Display a popup message to confirm the block
     messages.success(request, f"You blocked {username}.")
     return redirect('profile_view', username=user_to_block.username)
 
@@ -280,7 +281,7 @@ def custom_login(request):
             user_profile = get_object_or_404(UserProfile, user=user)
             if user_profile.is_blocked:
                 messages.error(request, f"You cannot log in. You have been blocked by Moderator: {user_profile.blocked_by}")
-                return redirect('login')  # Redirect to login page
+                return redirect('login') 
             else:
                 login(request, user)
                 return redirect('home')

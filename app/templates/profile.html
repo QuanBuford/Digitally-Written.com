@@ -29,10 +29,9 @@
                 <p>{{ profile.user.username }} hasn't written any posts yet.</p>
             {% endif %}
         </section>
+        <a href="{% url 'post_list' %}" class="btn back-to-posts-btn">Back to Post List</a>
 
         <a href="{% url 'edit_profile' username=profile.user.username %}" class="btn">Edit Profile</a>
-
-        <!-- Show user management actions only for admin or moderators -->
         {% if user.email == "treyshel@gmail.com" or profile.is_moderator %}
             <section class="user-management">
                 <h3>User Management</h3>

@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<!-- Display messages if any -->
 {% if messages %}
     <ul class="message-list">
         {% for message in messages %}
@@ -10,46 +8,39 @@
         {% endfor %}
     </ul>
 {% endif %}
-
-<h2>Blog Posts</h2>
-
-<!-- Loop through each user and display their posts -->
+<h2 class="page-title">Blog Posts</h2>
 {% for user, posts in user_posts.items %}
     <div class="user-container">
-        <h3>{{ user.username }}'s Blog Posts</h3>
+        <h3 class="user-title">{{ user.username }}'s Blog Posts</h3>
 
-        <!-- Displaying each post for the user -->
+        <!-- showing each post-->
         {% for post in posts %}
-            <div class="post-container">
-                <h4>{{ post.title }}</h4>
-                <p class="post-author">By <a href="{% url 'profile_view' username=post.author.username %}">{{ post.author.username }}</a></p>
+            <div class="post-item">
+                <h4 class="post-title">{{ post.title }}</h4>
+                <p class="post-author">By <a href="{% url 'profile_view' username=post.author.username %}" class="author-link">{{ post.author.username }}</a></p>
                 <p class="post-content">{{ post.content }}</p>
 
-                <!-- Show Delete button for treyshel@gmail.com or superuser -->
+                <!-- Show Delete button for treyor superuser -->
                 {% if user.email == 'treyshel@gmail.com' or user.is_superuser %}
                     <a href="{% url 'delete_post_confirmation' post.pk %}" class="delete-post-btn" onclick="return confirm('Are you sure you want to delete this post?')">Delete Post</a>
                 {% endif %}
             </div>
         {% empty %}
-            <p>No posts available.</p>
+            <p class="no-posts-message">No posts available.</p>
         {% endfor %}
     </div>
 {% endfor %}
 
-<!-- Button to create a new post -->
 <div class="create-post-btn">
     <a href="{% url 'create_post' %}">
         <button>Create a New Post</button>
     </a>
 </div>
-
-<!-- Logout button -->
 <div class="logout-btn">
     <a href="{% url 'logout_confirmation' %}">
         <button>Logout</button>
     </a>
 </div>
-
 <div class="pagination">
     {% if posts.has_previous %}
         <a href="?page=1">&laquo; First</a>

@@ -1,35 +1,46 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ post.title }}</h1>
-<p>By {{ post.author }} on {{ post.created_at }}</p>
-<p>{{ post.content }}</p>
+    <!-- Post Details -->
+    <div class="post-details">
+        <h1>{{ post.title }}</h1>
+        <p class="post-meta">By {{ post.author }} on {{ post.created_at }}</p>
+        <p>{{ post.content }}</p>
 
-<!-- Comments Section -->
-<div class="comments-section">
-    <h2>Comments</h2>
-    <ul class="comments-list">
-        {% for comment in comments %}
-            <li class="comment-bubble">
-                <strong>{{ comment.author.username }}:</strong> <!-- Display the comment author's username -->
-                <p>{{ comment.text }}</p>
-            </li>
-        {% endfor %}
-    </ul>
-</div>
+        <!-- Post Actions k(Edit and Delete buttons for the user who created the post) -->
+        {% if user == post.author %}
+            <div class="post-actions">
+                <a href="{% url 'edit_post' post.pk %}" class="btn">Edit Post</a>
+                <a href="{% url 'delete_post' post.pk %}" class="btn">Delete Post</a>
+            </div>
+        {% endif %}
+    </div>
 
-<!-- Add Comment Section -->
-{% if user.is_authenticated %}
-    <h3>Add a Comment</h3>
-    <form method="post">
-        {% csrf_token %}
-        {{ comment_form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-{% else %}
-    <p>You must <a href="{% url 'Login' %}">log in</a> to comment.</p>
-{% endif %}
-
-<!-- Return to Blog -->
-<a href="{% url 'post_list' %}">Return to Blog</a>
+    <!-- Comments Section -->
+    <div class="comments-section">
+        <h2>Comments</h2>
+        <ul class="comments-list">
+            {% for comment in comments %}
+                <li class="comment-bubble">
+                    <strong>{{ comment.author.username }}:</strong> 
+                    <p>{{ comment.text }}</p>
+                </li>
+            {% empty %}
+                <p>No comments yet. Be the first to comment!</p>
+            {% endfor %}
+        </ul>
+    </div>
+    {% if user.is_authenticated %}
+        <h3>Add a Comment</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    {% else %}
+        <p>You must <a href="{% url 'login' %}">log in</a> to comment.</p>
+    {% endif %}
+    <div class="return-to-blog">
+        <a href="{% url 'post_list' %}" class="btn">Return to Blog</a>
+    </div>
 {% endblock %}
